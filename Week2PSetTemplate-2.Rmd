@@ -1,16 +1,16 @@
 ---
 title: "Week 2 Problem Set"
-author: "Your Name Here!"
-date: "Date goes Here!"
+author: "Lindsey Devir"
+date: "4/12/26"
 output: pdf_document
 ---
 
 ```{r header2}
 #####################################################
 ## title: second problem set!
-## author: you!
+## author: Lindsey Devir
 ## purpose: to try out R
-## date: today's date
+## date: 4/12/26
 #####################################################
 
 # you can start coding below
