@@ -1,0 +1,60 @@
+---
+title: "Week 2 Problem Set"
+author: "Your Name Here!"
+date: "Date goes Here!"
+output: pdf_document
+---
+
+```{r header2}
+#####################################################
+## title: Week 2 Problem Set!
+## author: Lindsey Devir
+## purpose: to try out R
+## date: 4/12/26
+#####################################################
+
+# you can start coding below
+
+```
+
+
+1. [Text answer for question 1 here]
+
+```{r q1, echo = TRUE}
+
+# write code for question 1 here!
+
+```
+
+
+2. [Text answer for question 2 here]
+
+```{r q2, echo = TRUE}
+
+# write code for question 2 here!
+
+```
+
+3. [Text answer for question 3 here]
+
+```{r q3, echo = TRUE}
+
+# write code for question 3 here!
+
+```
+
+4. [Text answer for question 4 here]
+
+```{r q4, echo = TRUE}
+
+# write code for question 4 here!
+
+```
+
+5. [Text answer for question 5 here]
+
+```{r q5, echo = TRUE}
+
+# write code for question 5 here!
+
+```
