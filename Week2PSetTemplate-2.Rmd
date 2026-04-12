@@ -11,6 +11,8 @@ output: pdf_document
 ## author: Lindsey Devir
 ## purpose: to try out R
 ## date: 4/12/26
+## Link to Github: https://github.com/ldevir9/soc10problemsets
+
 #####################################################
 
 # you can start coding below
