@@ -56,14 +56,17 @@ add_line(df1)
 
 3. Add your own data to a collaboration! In the markdown file, add to the small dataframe with some potential data sources for further social science research. Add one or more resources to this list. __Commit__ your changes. 
 
+Here I decided to look at household income by householder educaitonal attainment between 2004-2024. 
 
 ```{r q3, echo = TRUE}
 
-# write code for question 3 here!
-resources_df <- data.frame("resource name" = c("All Our Ideas"), 
-                       "link" = c("https://allourideas.org/"),
-                       "custom_ready" = c("custom made"),
-                       "description" = c("All Our Ideas is a wiki survey that asks participants to compare two items (e.g. which is better, Stanford or Cal?) at a time. The respondents' answers are then aggregated so that each answer has a win percentage, and the surveyor can rank a large number of items. Respondents can also add their own ideas (answers) to the survey. This is useful for doing surveys on large or ambiguous questions, where the researcher might not know the best answers and it may be hard to compare all at once, but where there is a definitive underlying ranking."))
+resources_df <- data.frame("resource name" = c("All Our Ideas", "Education and Income (Census)"),
+"link" = c("https://allourideas.org/"
+            "https://www.census.gov/library/stories/2025/09/education-and-income.html"),
+"custom_ready" = c("custom made", "not custom"),
+
+"description" = c("Education and Income is a U.S Census Bureau story that shows how income varies by educaitonal level. It demonstrates that higher levels of education are associated with higher earnings and differences in income outcomes across the population.")
+)
 
 ```
 
@@ -98,5 +101,5 @@ plot(data_geo)
 
 5. List the three types of collaboration that Salganik names. When can each work well, and what are potential downsides? List one new idea for a collaborative data project in each category. __Commit__ your changes. 
 
-
+The three types of collaboration that Salganik names is human computation, open calls, and distributed data collection. Human computation works well 
 
