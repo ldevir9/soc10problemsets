@@ -23,7 +23,7 @@ output: pdf_document
 1. On GitHub, create a new __repository__ called "soc10problemsets" (or something similar). Then upload the "Week2PSetTemplate.Rmd" file (you can download it here [here](https://github.com/Soc10Spring2026/soc10problemsets_templates)). Make Tyler (`tylermcdaniel`) and Yao (`yao-mxu`) "collaborators" in this repository so we can see your work (Settings -> Collaborators -> Add People). Add your name and the date to the top of the file, save your changes, and __commit__ them. (note: You can do this online, but I recommend using GitHub Desktop!).
 
 
-[Text answer for question 1 here]
+Here I created a new repository called soc10problemsets and shared that with both Tyler and Yao!
 
 
 
