@@ -29,7 +29,7 @@ Here I created a new repository called soc10problemsets and shared that with bot
 
 2. In the space below, set "eval = TRUE" and try running the first code chunk. Then fix the error. On your local file, __commit__ the file to your GitHub.  
 
-[Text answer for question 2 here]
+For question 2 I found three errors. First, I had to change the eval = FALSE to evaul = TRUE. Next, I had to change the error within new_dataframe -> data.frame and fix the arrow from facing right to facing left  new_dataframe <- data.frame. Lastly, I loaded the package library(dplyr). 
 
 ```{r q2, echo = TRUE, eval = FALSE}
 
