@@ -69,11 +69,28 @@ resources_df <- data.frame("resource name" = c("All Our Ideas"),
 
 4. Using the `gtrendsR` R package, download data on a term of your choosing. Show a plot of the search term over time, and then plot it over different geographies. Discuss how each of Salganik's 10 characteristics of computational data apply (or don't apply). __Commit__ your changes. 
 
-[Text answer for question 4 here]
+I downloaded the gtrendsR package, and choose to download data on female athletes and sports injuries as I am a college athlete I thought it could be intresting. When considering Salganik's 10 characteristics of computational data this is how I think it does or does not apply. 1. Alaways on: this applies because the trend data is continuously collecting information as people search, so this dataset represents a report over a long period time and ongoing. 2. Nonreactive: 
 
 ```{r q4, echo = TRUE}
 
-# write code for question 4 here!
+library(gtrendsR)
+data_social <- gtrends(c("female athletes", "sports injuries"),
+  geo = c("US")
+)
+
+plot(data_social)
+
+data_social <- gtrends(c("female athletes", "sports injuries"),
+  geo = c("US"), time = "all"
+)
+
+plot(data_social_all)
+
+data_geo <- gtrends(c("female athletes"),
+  geo = c("US-CA", "US-NY", "US-FL"), time = "all"
+)
+
+plot(data_geo)
 
 
 ```
