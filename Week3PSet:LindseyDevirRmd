@@ -7,7 +7,7 @@ output: pdf_document
 
 1. Start a new document, problemset3.Rmd, in your soc10problemsets repository. (You can download a template [here](https://github.com/Soc10Spring2026/soc10problemsets_templates), but be sure to save it in your own soc10problemsets repo). Change your name in the header. Load the `gapminder` data using `library(gapminder)`. Create a simple plot with two of the variables. __Commit__ your changes. 
 
-Here I created a scatter plot that illustrates life expectancy across continents. Meaning, the x axis is the regions and y axis is the average life expectancy for each country. Each dot depicts a country during a specific year. 
+Here I created a plot that illustrates life expectancy across continents. Meaning, the x axis is the regions and y axis is the average life expectancy for each country. Each dot depicts a country during a specific year. 
 
 ```{r q1, echo = TRUE}
 
