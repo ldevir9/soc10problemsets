@@ -1,17 +1,22 @@
 ---
 title: "Week 3 Problem Set"
-author: "Your Name Here! (github link here)"
-date: "Date goes Here!"
+author: "Lindsey Devir (github link here)"
+date: "4/19/26"
 output: pdf_document
 ---
 
 1. Start a new document, problemset3.Rmd, in your soc10problemsets repository. (You can download a template [here](https://github.com/Soc10Spring2026/soc10problemsets_templates), but be sure to save it in your own soc10problemsets repo). Change your name in the header. Load the `gapminder` data using `library(gapminder)`. Create a simple plot with two of the variables. __Commit__ your changes. 
 
-[Text answer for question 1 here]
+Here I created a scatter plot that illustrates life expectancy across continents. Meaning, the x axis is the regions and y axis is the average life expectancy for each country. Each dot depicts a country during a specific year. 
 
 ```{r q1, echo = TRUE}
 
+library(gapminder)
+library(ggplot2)
 
+ggplot(data = gapminder, 
+            mapping = aes(x = continent, y = lifeExp))+
+  geom_point()
 
 ```
 
@@ -21,7 +26,16 @@ output: pdf_document
 
 ```{r q2, echo = TRUE}
 
-
+ggplot(gapminder, 
+      mapping = aes(x = continent, y = lifeExp, col = continent))+
+geom_boxplot(alpha = 0.5)+
+geom_jitter(alpha = 0.3, width = 0.3)+
+scale_color_manual(values = c("red", "pink", "orange", "green", "blue))+
+scale_size_continuous(range = c(0.5, 6))+ 
+labs(title = "Life Expectancy by Continent",
+x = "Continent",
+y = "Life Expectancy",
+col = "Continent")
 
 ```
 
