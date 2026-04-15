@@ -54,6 +54,8 @@ url <- getURL("https://raw.githubusercontent.com/tylermcdaniel/soc10/refs/heads/
 # download wikipedia data (from github)
 ca_dem_table <- read_csv(url)
 
+               
+
 
 ```
 
