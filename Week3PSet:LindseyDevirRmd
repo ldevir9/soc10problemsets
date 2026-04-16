@@ -104,7 +104,7 @@ gapminder %<>%
 
 5. Find a data visualization in the wild! It could be in the news, from an academic article, or somewhere else. Include an image of it using the `knitr::include_graphics("")` function. Describe its positive and negative aspects. __Commit__ your changes. 
 
-[Text answer for question 5 here]
+The positive of this graph is that the user was trying to find a unique way to display the data using a radical histogram. This allowed all of the information to be displayed, versus something like a bar chart would have been difficult to convey this amount of information. The shape of the ring also allows for easier understanding at a glace which medians are the highest (Europe) and the lowest (Africa) as the burst makes it simple to find the one with the most amount of points far out. Hence, the positives are that this graph can convey a lot of data in a small space, as well as using color and this burst effect to allow for easier comparisons to the other contients. However, the negative to this graph is that it is hard to know what the average median is to each. Also, the fade spot in the middle makes it harder to tell what is going on and I think takes your eyes away from the important data. Finally, I would never have guessed that the lowest is 18 and the oldest is 35, but the graph says that as the bottom, so I could not tell you exactly what the others would be, so I think it would have been helpful to more clearly made it easy to tell what the median was for each or to write it in a key.  
 
 
 ```{r q5, echo = TRUE}
