@@ -7,7 +7,7 @@ output: pdf_document
 
 1. Start a new document, problemset3.Rmd, in your soc10problemsets repository. (You can download a template [here](https://github.com/Soc10Spring2026/soc10problemsets_templates), but be sure to save it in your own soc10problemsets repo). Change your name in the header. Load the `gapminder` data using `library(gapminder)`. Create a simple plot with two of the variables. __Commit__ your changes. 
 
-Here I created a plot that illustrates life expectancy across continents. Meaning, the x axis is the regions and y axis is the average life expectancy for each country. Each dot depicts a country during a specific year. 
+Here I created a plot that illustrates life expectancy across continents. Meaning, the x axis is the regions and y axis is the average life expectancy for each continent. Each dot depicts a continent during a specific year. 
 
 ```{r q1, echo = TRUE}
 
@@ -22,7 +22,7 @@ ggplot(data = gapminder,
 
 2. Now, modify your plot! For each change that you make, explain your decision, in terms of the visual elements. __Commit__ your changes. 
 
-Now for question 2 looking at question one made it hard to understand what the data was showing me, so to make it more clear I made a few changes. First, I created a boxplot to show the median and range of life expectancy. I then made the box plot black so it would be easy to compare with each country clearly where the range of life expectancy was. I also added jittered points which means that it spreads the points out to prevent them from being as cluttered and overlapping as they were in question 1. Next, I added color to make it easy to differentiate each country from one another. After doing this, I then assigned each country a color to make it easy to draw comparisons. Lastly, I improved the labels and gave it a title, x and y axis to help the reader to know how to interpret this data visual. 
+Now for question 2 looking at question one made it hard to understand what the data was showing me, so to make it more clear I made a few changes. First, I created a boxplot to show the median and range of life expectancy. I then made the box plot black so it would be easy to compare with each continent clearly where the range of life expectancy was. I also added jittered points which means that it spreads the points out to prevent them from being as cluttered and overlapping as they were in question 1. Next, I added color to make it easy to differentiate each continent from one another. After doing this, I then assigned each continent a color to make it easy to draw comparisons. Lastly, I improved the labels and gave it a title, x and y axis to help the reader to know how to interpret this data visual. 
 
 ```{r q2, echo = TRUE}
 
@@ -81,7 +81,7 @@ facet_wrap(~Year)
 
 4. Return to a dataset you have worked with in this class already (for example, hand-collected data, data using the `data()` function. The `gtrendsR` data could also work but may need some cleaning/manipulation). Use `ggplot()` to plot this data in a new way. Describe whether the viewer learns anything new from seeing the data in this way. __Commit__ your changes.  
 
-I used the data set gapminder to find a different way to visualize the changes in average life expectancy over time across each continent. In comparison to the box plot I did in question 1 I think this line plot actually allows you to more quickly understand which country has the highest average of life and grasp the comparison more efficient. When looking broadly at this graph it is easy to see that each continent has improve slightly in life expectancy, with some more than others but all showing improvement. Overall, I think this graph allowed to see long term trend more clearly to compare to other continents. 
+I used the data set gapminder to find a different way to visualize the changes in average life expectancy over time across each continent. In comparison to the box plot I did in question 1 I think this line plot actually allows you to more quickly understand which continent has the highest average of life and grasp the comparison more efficient. When looking broadly at this graph it is easy to see that each continent has improve slightly in life expectancy, with some more than others but all showing improvement. Overall, I think this graph allowed to see long term trend more clearly to compare to other continents. 
 
 ```{r q4, echo = TRUE}
 
