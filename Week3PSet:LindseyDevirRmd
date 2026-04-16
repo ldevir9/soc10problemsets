@@ -81,12 +81,24 @@ facet_wrap(~Year)
 
 4. Return to a dataset you have worked with in this class already (for example, hand-collected data, data using the `data()` function. The `gtrendsR` data could also work but may need some cleaning/manipulation). Use `ggplot()` to plot this data in a new way. Describe whether the viewer learns anything new from seeing the data in this way. __Commit__ your changes.  
 
-[Text answer for question 4 here]
+I used the data set gapminder to find a different way to visualize the changes in average life expectancy over time across each continent. In compairson to the box plot I did in question 1 I think this line plot actually allows you to more quickly understand which country has the highest average of life and grasp the compairson more efficentley. When looking broadly at this graph it is easy to see that each continent has improve slightly in life expectancy, with some more than others but all showing improvement. Overall, I think this graph allowed to see long term trend more clearly to compare to other continents. 
 
 ```{r q4, echo = TRUE}
 
-# write code for question 4 here!
+library(ggplot2)
+library(dplyr)
+library(gapminder)
 
+gapminder %<>%
+            group_by(continent, year( %<>%
+            summarize(avg_lifeExp = mean(lifeExp)) %<>%
+            ggplot(aes(x = year, y = avg_lifeExp, color = continent)) +
+            geom_line(linewidth = 1) +
+            geom_point() +
+            labs(title = "Average Life Expectancy Over Time By Continent",
+            x = "Year",
+            y = "Average Life Expectancy") +
+            theme_minimal()
 
 ```
 
