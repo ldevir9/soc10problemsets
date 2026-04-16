@@ -110,6 +110,6 @@ gapminder %<>%
 
 ```{r q5, echo = TRUE}
 
-#knitr::include_graphics("")
+knitr::include_graphics("sochw.jpg")
 
 ```
