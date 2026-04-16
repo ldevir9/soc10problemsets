@@ -31,7 +31,6 @@ ggplot(gapminder,
 geom_boxplot(alpha = 0.5)+
 geom_jitter(alpha = 0.3, width = 0.3)+
 scale_color_manual(values = c("red", "pink", "orange", "green", "blue))+
-scale_size_continuous(range = c(0.5, 6))+ 
 labs(title = "Life Expectancy by Continent",
 x = "Continent",
 y = "Life Expectancy",
