@@ -21,7 +21,7 @@ One challenge in survey data is the rise in nonresponse rates, which I think has
 
 3. Gather the data from [this Wikipedia page on incarceration in the US](https://en.wikipedia.org/wiki/Incarceration_in_the_United_States) (you can use the code from Section 4 of the course website to gather this). Use `mutate()`, `parse_number()` from the `readr` package, and the magrittr pipe (`%<>%`) to fix the issue with the `Count` variable. Then plot the Count variable over time with `ggplot()`. __Commit__ your changes.
 
-[Text answer for question 3 here]
+For this problem, I had to scape using the rvest package to get the wiki information about U.S incarceration. I then cleaned the Count variable using the parse_number(). Then plotted to be able to see if there are any trends from the data. 
 
 ```{r q3, echo = TRUE, message = FALSE}
 
@@ -31,7 +31,7 @@ One challenge in survey data is the rise in nonresponse rates, which I think has
 
 4. Now model it! Add a linear model of incarceration over time to your plot. (Note: If you are unable to plot question 3 correctly, you can plot `Rate` as the outcome for this question). __Commit__ your changes.  
 
-[Text answer for question 4 here]
+I used geom_smooth to see the relationship between year and count, and then add a line of best fit to see the trend within the data. 
 
 ```{r q4, echo = TRUE}
 
