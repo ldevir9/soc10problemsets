@@ -31,7 +31,7 @@ For this problem, I had to scape using the rvest package to get the wiki informa
 
 4. Now model it! Add a linear model of incarceration over time to your plot. (Note: If you are unable to plot question 3 correctly, you can plot `Rate` as the outcome for this question). __Commit__ your changes.  
 
-I used geom_smooth to see the relationship between year and count, and then add a line of best fit to see the trend within the data. 
+I used geom_smooth to see the relationship between year and count, and then add a line of best fit to see the trend within the amount of incarceration and the year.
 
 ```{r q4, echo = TRUE}
 
