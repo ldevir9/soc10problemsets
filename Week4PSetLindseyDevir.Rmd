@@ -11,6 +11,21 @@ For this problem, I downloaded the tidycensus package in order to get the U.S ce
 
 ```{r q1, echo = TRUE, eval = FALSE}
 
+library(tidycensus)
+library(tidyverse)
+
+ca_data <- get_decennial(
+  geography = "state",
+  state = "CA",
+  variables = c(
+    total = "P1_001N",
+    white = "P1_003N",
+    black = "P1_004N",
+    asian = "P1_006N",
+    hispanic = "P2_002N"
+),
+  year = 2020
+)
 
 ```
 
@@ -25,6 +40,29 @@ For this problem, I had to scape using the rvest package to get the wiki informa
 
 ```{r q3, echo = TRUE, message = FALSE}
 
+library(rvest)
+library(dplyr)
+library(magrittr)
+library(readr)
+library(ggplot2)
+
+wiki_data <-read_html("https://en.wikipedia.org/wiki/Incarceration_in_the_United_States") 
+
+incarceration_table <- html_nodes(
+  wiki_data,
+  xpath = '//*[@id="mw-content-text"]/div[2]div[5]/table'
+)
+
+incarceration_table %<>% 
+  html_table()
+incarceration_table %<>% 
+  as.data.frame()
+
+incarceration_table %<>% 
+  mutate((Count = parse_number((Count))
+
+ggplot(incarceration_table, aes( x = Year, y = Count)) +
+  geom_point()
 
 
 ```
@@ -35,6 +73,9 @@ I used geom_smooth to see the relationship between year and count, and then add 
 
 ```{r q4, echo = TRUE}
 
+ggplot(incarceration_table, aes(x = Year, Y = Count)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
 
 ```
 
