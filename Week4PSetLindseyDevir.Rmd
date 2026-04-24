@@ -41,5 +41,4 @@ I used geom_smooth to see the relationship between year and count, and then add 
 
 5. Would a linear or non-linear model be more appropriate for explaining and predicting trends in US society and incarceration? Explain the benefits and drawbacks of each. __Commit__ your changes.  
 
-[Text answer for question 5 here]
-
+I think that a linear model would be harder to show trends among US society and incarceration because it is over simplified in seeing all the variation using a single slope. Meaning, one line makes it hard to see a small differences and changes over a long period of time which could be misleading assuming the relationship is always constant. Therefore, if the data is more complex such as US society and incarceration than non-linear would make more sense because it would show more fluctuations in data, times where there is large increases and decreases, and time where it is a more stable and constant patterns. However, the only drawback to this is that it might be harder to have reliable predictions and harder to understand and interpret the data as a whole outside the observed data feel less reliable. 
