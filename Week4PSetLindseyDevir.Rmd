@@ -1,7 +1,7 @@
 ---
 title: "Week 4 Problem Set"
-author: "Your Name Here! (github link here)"
-date: "Date goes Here!"
+author: "Lindsey Devir (https://github.com/ldevir9)"
+date: "4/26/26"
 output: pdf_document
 ---
 
