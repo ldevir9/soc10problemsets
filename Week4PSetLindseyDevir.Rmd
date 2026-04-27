@@ -7,24 +7,24 @@ output: pdf_document
 
 1. Start a new document, problemset4.Rmd, in your soc10problemsets repository. (You can download a template [here](https://github.com/Soc10Spring2026/soc10problemsets_templates), but be sure to save it in your own soc10problemsets repo). In the chunk below, show how you would gather data on California's ethnoracial demographics for 2020 using `tidycensus`. (Note: in the chunk below, `eval` is set to false, so you won't see any results. That is ok! Just show the code. And remove your personal key). __Commit__ your changes.
 
-For this problem, I downloaded the tidycensus package in order to get the U.S census data through the API. I clarified the location (California), choose the variables connected to ethnoracial demographics and got the data from the 2020 decennial census. Meaning, this shows how API makes it possible to get large amounts of data loaded into R efficiently.
+For this problem, I downloaded the tidycensus package in order to get California's racial demographics in 2020. I used get_decennial function to select racial categories from the 2020 dataset. I used these cateogories to show the major ones within the census. 
 
 ```{r q1, echo = TRUE, eval = FALSE}
 
 library(tidycensus)
 library(tidyverse)
 
-ca_data <- get_decennial(
+ca_race)2020 <- get_decennial(
   geography = "state",
   state = "CA",
   variables = c(
-    total = "P1_001N",
-    white = "P1_003N",
-    black = "P1_004N",
-    asian = "P1_006N",
-    hispanic = "P2_002N"
-),
-  year = 2020
+    hispanic = "P2_002N",
+    white = "P2_005N",
+    black = "P2_006N",
+    asian = "P2_008N",
+    native = "P2_007N"),
+  year = 2020,
+  sumfile = "pl"
 )
 
 ```
