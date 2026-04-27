@@ -31,7 +31,7 @@ ca_race)2020 <- get_decennial(
 
 2. In Bit by Bit, Salganik describes several possibilities and challenges of survey data in the digital age. Do you think any of these have changed since 2017 (when the book was written)? Pick a new type of survey or data collection, and describe its current possibilities and limitations. __Commit__ your changes. 
 
-One challenge in survey data is the rise in nonresponse rates, which I think has definitely increased more way more from 2017. The outcome threatens the quality of estimates because the estimates highly depend on the statistical models that researchers use to adjust for missing nonresponses. The outcome is that even probability sampling may not generate reliable results. Furthermore, a challenge in digital data specifically like non-probability sampling is unadjusted samples can lead to bad estimates, they are cheaper and faster to conduct but are less familiar and more varied resulting in unrepresentative samples. With phones becoming prominent I think it could be intresting to study people's social media data to track behaviors in what one interacts with. I think a challenge of this would be people feeling like their information is being exposed, and used without consent, causing issues reguaring privacy when using public data. Furthermore, this might not be fully a representative sample since part of the population might not have social media, or even a phone. However, the bonus of this sample method is that it allows to gather large amounts of data to draw information of how people interact with information, studying social behavior. Hence, more digital data collection methods could create new forms of research but also create new possibilities for bias or limitations for unrepresentative samples.
+In Bit by Bit Salganik discusses how digital surveys reduce costs and speed up data collection. However, one challenge in survey data is the rise in nonresponse rates, which I think has definitely increased becoming more pronounced since 2017. The outcome threatens the quality of estimates because the estimates highly depend on the statistical models that researchers use to adjust for missing nonresponses. The outcome is that even probability sampling may not generate reliable results. Another key issue is non-probability sampling is unadjusted samples can lead to bad estimates, they are cheaper and faster to conduct but are less familiar and more varied resulting in unrepresentative samples. Since the book has been written a new form of data collection is data scraping and platform based tracking (Instagram, YouTube, TikTok). Instead of having survey questions, researchers can observe real time interactions like likes, shares, saved, scrolling behavior, search bar etc. This allows researchers to observe social media behavior to see patterns or trends among users. On the other hand, limitations persist, people may feel like their information is being exposed, and used without consent, causing issues regarding privacy when using public data. Furthermore, this also might not be fully a representative sample since part of the population might not have social media, or even a phone. Hence, more digital data collection methods could create new forms of research but also create new possibilities for bias or limitations for unrepresentative samples. Overall, digital data from these large platforms can create new ways to study human behaviors, while still creating possibility for bias, ethical concerns and unrepresentative issues as shown by Salganik.
 
 
 3. Gather the data from [this Wikipedia page on incarceration in the US](https://en.wikipedia.org/wiki/Incarceration_in_the_United_States) (you can use the code from Section 4 of the course website to gather this). Use `mutate()`, `parse_number()` from the `readr` package, and the magrittr pipe (`%<>%`) to fix the issue with the `Count` variable. Then plot the Count variable over time with `ggplot()`. __Commit__ your changes.
@@ -43,24 +43,29 @@ For this problem, I had to scape using the rvest package to get the wiki informa
 library(rvest)
 library(dplyr)
 library(magrittr)
-library(readr)
-library(ggplot2)
 
+#Load HTML
 wiki_data <-read_html("https://en.wikipedia.org/wiki/Incarceration_in_the_United_States") 
+
 
 incarceration_table <- html_nodes(
   wiki_data,
   xpath = '//*[@id="mw-content-text"]/div[2]div[5]/table'
 )
 
+#Update data into table and updata dataframe
 incarceration_table %<>% 
   html_table()
 incarceration_table %<>% 
   as.data.frame()
 
+#Change values to numbers
+library(readr)
 incarceration_table %<>% 
   mutate((Count = parse_number((Count))
 
+# Plot Count
+library(ggplot2)
 ggplot(incarceration_table, aes( x = Year, y = Count)) +
   geom_point()
 
@@ -73,6 +78,7 @@ I used geom_smooth to see the relationship between year and count, and then add 
 
 ```{r q4, echo = TRUE}
 
+#Add Linear model
 ggplot(incarceration_table, aes(x = Year, Y = Count)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE)
@@ -82,4 +88,4 @@ ggplot(incarceration_table, aes(x = Year, Y = Count)) +
 
 5. Would a linear or non-linear model be more appropriate for explaining and predicting trends in US society and incarceration? Explain the benefits and drawbacks of each. __Commit__ your changes.  
 
-I think that a linear model would be harder to show trends among US society and incarceration because it is over simplified in seeing all the variation using a single slope. Meaning, one line makes it hard to see a small differences and changes over a long period of time which could be misleading assuming the relationship is always constant. Therefore, if the data is more complex such as US society and incarceration than non-linear would make more sense because it would show more fluctuations in data, times where there is large increases and decreases, and time where it is a more stable and constant patterns. However, the only drawback to this is that it might be harder to have reliable predictions and harder to understand and interpret the data as a whole outside the observed data feel less reliable. 
+I think that a linear model would be harder to show trends among US society and incarceration because it is over simplified using a single slope. Meaning, one line makes it hard to see a small differences and changes over a long period of time which could be misleading assuming the relationship is always constant. Therefore, if the data is more complex such as US society and incarceration than non-linear would make more sense because it would show more fluctuations in data, times where there is large increases and decreases (could be policy changes etc.), and time where it is a more stable and constant patterns.However, the only drawback to this is that it might be harder to have reliable predictions and might be harder to interpret without a contant slope line. 
