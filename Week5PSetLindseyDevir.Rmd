@@ -12,6 +12,17 @@ output: pdf_document
 
 ```{r q1, echo = TRUE}
 
+library(sf)
+library(ggplot2)
+
+#load the data in
+nc <- st_read(system.file("shape/nc.shp", package= "sf"))
+
+#then plot using a variable (I used SID79)
+ggplot(nc) +
+  geom_sf(aes(fill = SID79)) +
+  scale_fill_gradient(low = "salmon", high = "darkred")
+  theme_minimal()
 
 ```
 
@@ -20,6 +31,25 @@ output: pdf_document
 
 [Download data for a correct variable in the correct geographies (1 point). Plot the map with ggplot (0.5 points). Describe findings accurately (0.5 points).]
 
+This map illustrates median household income within block groups in Santa Clara County. For example, the high income areas are concentrated in specific areas of the county. In contrast, the lower income areas are in other specific regions of the county. Therefore, this hsows spatial inequality within the county because income levels are not evenly distributed with the area, but conversely show geopgraphic clustering. 
+
+library(tidycensus)
+library(ggplot2)
+
+santa_clara_income <- get_acs(
+  state = "CA", 
+  county = "Santa Clara",
+  geography = "block group", 
+  variables = "B19013_001",
+  geometry = TRUE,
+  year = 2020
+)
+
+ggplot(santa_clara_income, aes(fill = estimate))+
+  geom_sf(color = NA) +
+  scale_fill_viridis_c(option = "magma") +
+  theme_minimal()
+
 
 3. Use the `tigris` function to download spatial data for counties in California. Plot the data using `ggplot()`. __Commit__ your changes. 
 
@@ -27,7 +57,16 @@ output: pdf_document
 
 ```{r q3, echo = TRUE, message = FALSE}
 
+library(tigris)
+library(ggplot2)
 
+#get counties
+CA_counties <- counties(state = "CA")
+
+#plot
+ggplot(CA_counties) +
+  geom_sf() + 
+  theme_minimal()
 
 ```
 
@@ -35,10 +74,17 @@ output: pdf_document
 
 [Create a plot with boundaries and AQI locations (0.5 points). Spatially join data (1 point) and calculate average PM2.5 levels in each unit (0.5 points). Plot the data again (0.5 points). Describe the findings and potential social implications (1 point).]
 
+After using the data set it is clear that the worst air quality in within the Central Valley area/more southern part of California. Menaing, the areas with better air quality seem to be the ones along the coast/ more northern. Hence, this shows that pollution is not evenly distributed across areas. The implications of this is that those in these areas of worst air quality might be put at risk for an increased possibly of experiencing health risks, versus those in good air quality, which demonstrates unequal envioromental equality. 
+
 ```{r q4, echo = TRUE, message = FALSE}
 
 library(readr)
 library(RCurl)
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(magrittr)
+library(viridis)
 
 # input url from github
 url <- getURL("https://raw.githubusercontent.com/tylermcdaniel/css/main/Data/aqi22_clean_ca.csv")
@@ -46,10 +92,37 @@ url <- getURL("https://raw.githubusercontent.com/tylermcdaniel/css/main/Data/aqi
 # download aqi monitor data (from github)
 aqi22m <- read_csv(url)
 
+CA_counties <- counties(state = "CA")
+
+aqi22 %<>%
+  st_set_crs(st_crs(CA_counties))
+
+aqi22 %<>%
+  filter(`Pollutant Standard` == "PM25 24-hour 2012" & `State Name` == "California")
+
+ggplot(aqi22) +
+  geom_sf(data = CA_counties) +
+  geom_sf(aes(col = `Arithmetic Mean`)) +
+  scale_color_viridis(option = "magma", direction = -1) +
+  theme minimal() +
+  labs(col = "PM2.5 Average")
+
+aqi_join <- st_join(CA_counties, aqi22)
+
+aqi_counties <- aqi_join %<>%
+  group_by(NAME) %<>%
+  summarise(mn_aqi = mean(`Arithmetic Mean`, na.rm= TRUE))
+
+ggplot(aqi_counties) +
+  geom_sf(aes(fill = mn_aqi)) +
+  scale_fill_viridis(option = "magma", direction = -1) +
+  theme_minimal()
 ```
 
 
 5. Does the county-level air quality map accurately represent how people experience air quality? Is the Modifiable Areal Unit Problem something that we should be concerned with? __Commit__ your changes. 
 
 [Make a defensible argument about the data's representativeness (0.5 points). Make a defensible argument about the MAUP (1 point). ]
+
+The county level map does not equally represent how people experience air quality because within the county itself the level of pollution can vary. Menaing, certain neighborhoods as we looked at in class might have more exposure than other areas. This can be that the monitors may be concentrated in one area, leaving other neighborhoods not measured to the same degree for its level of pollution. So when data is aggregated at the county level it is difficult to see and identify these outcome of spatial analysis can vary on the geographic unit used (such as county or neighborhood). In the exmaple we are talking about counties masked the data and made it hard to draw real conclusions by oversimplifying pattern, creating data unequal to all areas. This is very important because air pollution is correlated with health risks, so in using large spatial units like counties led to inequalities that can affect outcomes. Overall, MAUP can be somehting of concern as it is possible to lead to wrongful or simplified conclusions about envioromental issues.
 
