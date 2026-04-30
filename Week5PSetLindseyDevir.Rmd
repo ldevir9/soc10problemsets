@@ -94,12 +94,15 @@ aqi22m <- read_csv(url)
 
 CA_counties <- counties(state = "CA")
 
+#I now set CRS
 aqi22 %<>%
   st_set_crs(st_crs(CA_counties))
 
+# Now limit pollution
 aqi22 %<>%
   filter(`Pollutant Standard` == "PM25 24-hour 2012" & `State Name` == "California")
 
+#Now I will try plotting
 ggplot(aqi22) +
   geom_sf(data = CA_counties) +
   geom_sf(aes(col = `Arithmetic Mean`)) +
@@ -113,6 +116,7 @@ aqi_counties <- aqi_join %<>%
   group_by(NAME) %<>%
   summarise(mn_aqi = mean(`Arithmetic Mean`, na.rm= TRUE))
 
+#Now i plot the geographies again according to these levels
 ggplot(aqi_counties) +
   geom_sf(aes(fill = mn_aqi)) +
   scale_fill_viridis(option = "magma", direction = -1) +
