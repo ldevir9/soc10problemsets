@@ -92,8 +92,6 @@ url <- getURL("https://raw.githubusercontent.com/tylermcdaniel/css/main/Data/aqi
 # download aqi monitor data (from github)
 aqi22m <- read_csv(url)
 
-CA_counties <- counties(state = "CA")
-
 #I now set CRS
 aqi22 %<>%
   st_set_crs(st_crs(CA_counties))
@@ -110,17 +108,25 @@ ggplot(aqi22) +
   theme minimal() +
   labs(col = "PM2.5 Average")
 
-aqi_join <- st_join(CA_counties, aqi22)
+# Join AQI to county boundaries
+CA_counties %<>%
+  st_join(aqi22)
 
-aqi_counties <- aqi_join %<>%
-  group_by(NAME) %<>%
-  summarise(mn_aqi = mean(`Arithmetic Mean`, na.rm= TRUE))
+#couties grouped
+CA_counties %<>%
+  group_by(GEOID)
 
-#Now i plot the geographies again according to these levels
-ggplot(aqi_counties) +
+#AQI average for each county
+CA_counties %<>%
+  summarise(mn_aqi = mean(`Arithmetic Mean`, na.rm= T))
+
+#Now replot
+ggplot(CA_counties) +
+  geom_sf(data = CA_counties)+
   geom_sf(aes(fill = mn_aqi)) +
   scale_fill_viridis(option = "magma", direction = -1) +
-  theme_minimal()
+  theme_minimal()+
+  labs(fill = "PM2.5 Average")
 ```
 
 
