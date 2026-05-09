@@ -47,9 +47,12 @@ plot(net, vertex.size = 30,
 
 2. Choose a centrality measure, and explain how you would interpret this in the context of the class activities data. Who is/are the most central actor(s) according to this measure? __Commit__ your changes. 
 
+I chose degree centrality because it is used to measure how many connecitons each student has in the network for class collaboration like shown in class. Hence, in this context, a higher degree centrality means that a student has more collaboration ties within this network of classmates (has worked with more people in this selected group). For exmaple, it shows that Olivia and Luci are the most central actors as they each have the highest number of direct collaboration ties in the network.
+
 ```{r q2, echo = TRUE}
 
-
+#Calculate degree centrality
+degree(net)
 
 ```
 
