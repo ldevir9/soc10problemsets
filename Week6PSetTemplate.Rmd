@@ -15,6 +15,7 @@ library(readr)
 library(RCurl)
 library(magrittr)
 library(dplyr)
+library(igraph)
 
 # input url from github
 url <- getURL("https://raw.githubusercontent.com/tylermcdaniel/css/main/Data/class_activities.csv")
@@ -22,6 +23,25 @@ url <- getURL("https://raw.githubusercontent.com/tylermcdaniel/css/main/Data/cla
 # download class activities data (from github)
 class_activities <- read_csv(url)
 
+#Network using 5 people
+el <- data.frame(
+    person_1 = c("Lindsey", "Olivia", "Jolie", "Luci", "Canon"),
+    person_2 = c("Olivia", "Luci", "Alex", "Sein", "Ava")
+_ %<>%
+  as.matrix()
+
+#create network
+net <- graph_from_edgelist(el, directed = FALSE)
+
+#now I will plot the network
+plot(net,
+      vertex.size = 30,
+      vetex.color = "pink",
+      vetex.frame.color = NA,
+      vetex.label.cex = .6,
+      edge.curved = .05,
+      edge.width = .9,
+      edge.color = "gray1")
 
 ```
 
