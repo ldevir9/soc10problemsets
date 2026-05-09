@@ -34,13 +34,13 @@ _ %<>%
 net <- graph_from_edgelist(el, directed = FALSE)
 
 #now I will plot the network
-plot(net,
-      vertex.size = 30,
-      vetex.color = "pink",
+plot(net, vertex.size = 30,
+      vetex.color = "lavender",
       vetex.frame.color = NA,
-      vetex.label.cex = .6,
+      vetex.label.cex = .7,
       edge.curved = .05,
-      edge.width = .9,
+      edge.arrow.size = .3,
+      edge.width = .7,
       edge.color = "gray1")
 
 ```
