@@ -14,7 +14,7 @@ output: pdf_document
 library(readr)
 library(RCurl)
 library(magrittr)
-library(dplyr)
+library(dplyr) 
 library(igraph)
 
 # input url from github
@@ -61,31 +61,70 @@ degree(net)
 
 3. Now download the IPCC co-authorship data (you can use the code included in the template). Using the IPCC co-authorship data, create a network graph of all co-authors who share at least 2 publications together, excluding those with no network ties, similar to what we do in section \@ref(co-authorship-patterns). Graph the data using eigenvector scores, rather than betweenness scores, to plot the vertex sizes. Does this make a difference in our interpretation of the network? __Commit__ your changes. 
 
+Eigenvector centrality changes the interpretation of the network compared to betweeness centrality. Betweenness centrality identifies authors who act as bridges between different parts of the network, as eigenvector centrality identifies authors who are highly connected to other well connected/influential authors. Therefore, eigenvector centrality emphasizes the core influential group in the IPCC co-authorship network instead of brokerage positions. Hence, the implication of this is that influence in this network is focused within a core group of authors instead of spread through intermediaries connected to various parts of the network.
 
 [Create a network graph of all co-authors with correct number of ties (1 point). Use eigenvector scores rather than betweenness scores to scale vertices (0.5 points). Describe the findings and potential implications (1 point).]
 
 ```{r q3, echo = TRUE, message = FALSE}
 
+library(readr)
+library(RCurl)
+library(magrittr)
+library(dplyr)
 
+url <- getURL("https://raw.githubusercontent.com/tylermcdaniel/css/main/Data/IPCC_co_authorship.csv")
+ipcc_authors <- read_csv(url, skip = 1)
+
+ipcc_authors %<>%
+mutate_all(~replace(., is.na(.), 0))
+
+ipcc_authors %<>%
+select(order(colnames(.)))
+
+ipcc_authors %<>%
+select(-Author) %<>%
+    as.martix()
+
+#replace 1s with 0s
+ipcc_authors[ipcc_authors == 1] = 0
+
+#replace NAs with 0s
+ipcc_authors[is.na(ipcc_authors)] = 0
+
+#vector of authors who do not collaborate with others
+no_colab <- which(apply(ipcc_authors, 1, sum, na.rm = TRUE) == 0)
+which(apply(ipcc_authors, 2, sum, na.rm = TRUE) == 0)
+
+ipcc_authors <- ipcc_authors[-no_colab, -no_colab]
+
+ipcc_net <- graph_from_adjacency_matrix(ipcc_authors, mode = "undirected")
+
+V(ipcc_net)$vector <- evcent(ipcc_net)$vector
+
+plot(ipcc_net,
+vertex.size = V(ipcc_net)$vector/max(V(ipcc_net)$vector) * 20,
+vertex.color = "lavender",
+vertex.frame.color = NA,
+vertex.label.cez = .5,
+edge.curved = .05,
+edge.width = .1,
+edge.color = "gray1")
 
 ```
 
 4. Let's say you want to give one of the IPCC authors a memo to disseminate to the others. Who would you choose? Which measure of centrality would help you arrive at your answer? __Commit__ your changes. 
 
+In order to disseminate a memo efficiently through the IPCC co-authorship network I would choose an author who is centrally located in the most connected part of the network, to allow the information to spread quickly to others. Hence, eigenvector centrality is the best measure for this as it identifies authors who are not just well connected themselves but also connected to other highly influential and connected authors. Therefore, this permmits it to be easier to find the influence in a collaborative diffusion process. Because of the eignvector centrality rankings I would then choose the author with the highest eigenvector centrality score which happens to be Nakicenovic as the starting point for the dissemination because it is the most influential node in the network.
 
 [Identify a reasonable strategy for dissemenation (1 point). Discuss a reasonable centrality measure that aligns with strategy (0.5 points). Correctly identify the node with highest value for said centrality measure (0.5 points).]
 
 ```{r q4, echo = TRUE, message = FALSE}
 
-# input url from github
-url <- getURL("https://raw.githubusercontent.com/tylermcdaniel/css/main/Data/IPCC_co_authorship.csv")
+#Find eigenvector centrality
+V(ipcc_net)$eigenvector <- eigen_centrality(ipcc_net)$vector
 
-# download authorship data (from github)
-ipcc_authors <- read_csv(url, skip = 1)
-
-# replace NA's with 0's
-ipcc_authors %<>%
-  mutate_all(~replace(., is.na(.), 0))
+#Put authors in descending order
+V(ipcc_net)[order(V(ipcc_net)$eigenvector, decreasing = TRUE)]
 
 ```
 
@@ -94,11 +133,15 @@ ipcc_authors %<>%
 
 [Correctly define a gender variable, and include an accurate label (1 point). Plot the IPCC co-authorship data with modified color/shape based on gender (0.5 points). Accurately describe the plot (0.5 points). Assess conclusions that can (or can't) be drawn (0.5 points).]
 
+The gender variable is defined using the IPCC CV data set and recoded so the authors are grouped by gender such as male, female and other/unknown. Hence, this variable is added to the network vertices so every author has a gender attribute within the graph. When looking at the network it is plotted with betweeness centrality to scale the node size so more central authors appear larger. Additionally, vertex color is used represent gender to compare the differences in representation for each gender within the network. Therefore, this plot shows that male authors are a larger portion of the network and are more central located which means highly connected. On the other hand, female authors appear less and are more on the outside (exterior) of the network. Overall, this draws the conclusion that there is an imbalance in the representation among genders and centrality in the IPCC co-authorship network, yet the visualization is not the cause of this difference so you cannot make a casual conclusion just that there is a difference in representation of gender and structure of the network. 
 
 ```{r q5, echo = TRUE, message = FALSE}
 
 library(readr)
 library(RCurl)
+library(magrittr)
+library(dplyr)
+library(igraph)
 
 # input url from github
 url <- getURL("https://raw.githubusercontent.com/tylermcdaniel/css/main/Data/IPCC_co_authorship.csv")
@@ -110,12 +153,30 @@ ipcc_authors <- read_csv(url, skip = 1)
 ipcc_authors %<>%
   mutate_all(~replace(., is.na(.), 0))
 
-## now gather cv data
-# input url from github
-url <- getURL("https://raw.githubusercontent.com/tylermcdaniel/css/main/Data/IPCC_cv.csv")
+# reorder colum names
+ipcc_authors %<>%
+    select(order(colnames(.)))
 
-# download authorship data (from github)
-ipcc_cvs <- read_csv(url)
+#convert to matrix
+ipcc_authors %<>%
+    select(-Author) %<>%
+    as.matrix()
+
+#replace 1s with 0s
+ipcc_authors[ipcc_authors == 1] = 0
+
+#replace NAs with 0s
+ipcc_authors[is.na(ipcc_authors)] = 0
+
+#vector of authors who do not collaborate with others
+no_colab <- which(apply(ipcc_authors, 1, sum, na.rm = TRUE) == 0)
+
+# then we can remove these from ipcc_authors
+ipcc_authors <- ipccc_authors[-no_colab, -no_colab]
+
+# create network
+ipcc_net <- graph_from_adjacency_matrix(ipcc_authors,
+                                            mode = "undirected")
 
 
 ```
