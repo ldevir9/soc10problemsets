@@ -114,17 +114,51 @@ edge.color = "gray1")
 
 4. Let's say you want to give one of the IPCC authors a memo to disseminate to the others. Who would you choose? Which measure of centrality would help you arrive at your answer? __Commit__ your changes. 
 
-In order to disseminate a memo efficiently through the IPCC co-authorship network I would choose an author who is centrally located in the most connected part of the network, to allow the information to spread quickly to others. Hence, eigenvector centrality is the best measure for this as it identifies authors who are not just well connected themselves but also connected to other highly influential and connected authors. Therefore, this permmits it to be easier to find the influence in a collaborative diffusion process. Because of the eignvector centrality rankings I would then choose the author with the highest eigenvector centrality score which happens to be Nakicenovic as the starting point for the dissemination because it is the most influential node in the network.
+In order to disseminate a memo efficiently through the IPCC co-authorship network I would choose an author who is centrally located in the most connected part of the network, to allow the information to spread quickly to others. Hence, eigenvector centrality is the best measure for this as it identifies authors who are not just well connected themselves but also connected to other highly influential and connected authors. Therefore, this permmits it to be easier to find the influence in a collaborative diffusion process. Because of the eignvector centrality rankings I would then choose the author with the highest eigenvector centrality score which happens to be Uerge-Vorsatz as the starting point for the dissemination because it is the most influential node in the network.
 
 [Identify a reasonable strategy for dissemenation (1 point). Discuss a reasonable centrality measure that aligns with strategy (0.5 points). Correctly identify the node with highest value for said centrality measure (0.5 points).]
 
 ```{r q4, echo = TRUE, message = FALSE}
 
-#Find eigenvector centrality
-V(ipcc_net)$eigenvector <- eigen_centrality(ipcc_net)$vector
+# input url from github
+url <- getURL("https://raw.githubusercontent.com/tylermcdaniel/css/main/Data/IPCC_co_authorship.csv")
 
-#Put authors in descending order
-V(ipcc_net)[order(V(ipcc_net)$eigenvector, decreasing = TRUE)]
+#download authorship data (from github)
+ipcc_authors <-read_csv(url, skip = 1)
+
+#replace NA's with 0's
+ipcc_authors %<>%
+mutate_all(~replace(., is.na(.), 0))
+
+#save author names
+author_names <- ipcc_authors[[1]]
+
+#create matrix
+ipcc_matrix <0 as.matrix(ipcc_authors[, 01])
+
+rownmaes(ipcc_matrix) <- author_names
+colnames(ipcc_matrix) <- author_names
+
+#create network
+ipcc_network <- graph_from_adjacency_matrix(ipcc_matrix)
+mode= "upper"
+weighted = TRUE,
+diag = FALSE)
+
+#keep only authors with at least 2 shares publicaitons
+ipcc_network_2 <- delete_edges(ipcc_netwoek,
+E(ipcc_network)[weight<2])
+
+#remove isolated authors
+ipcc_network_2 <- delete_vertices(ipcc_network_2,
+degree(ipcc_network_2) == 0)
+
+#calculate degree centrality
+degree_ipcc <- degree(ipcc_network_2)
+
+# find most central author
+memo_author <- names(degree_ipcc[degree_ipcc == max(degree_ipcc)])
+memo_author
 
 ```
 
